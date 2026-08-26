@@ -52,6 +52,20 @@ describe("POST /", () => {
       error: { code: "INVALID_INPUT" },
     });
   });
+
+  it("returns 400 INVALID_INPUT (not 500) for malformed JSON body", async () => {
+    const res = await app.inject({
+      method: "POST",
+      url: "/",
+      headers: { "content-type": "application/json" },
+      payload: "{not valid json",
+    });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.json()).toMatchObject({
+      error: { code: "INVALID_INPUT" },
+    });
+  });
 });
 
 describe("GET /:id and /:id/info", () => {
