@@ -40,7 +40,8 @@ server together for local development.
 
 ## Structure
 
-- `src/routes/beam.ts` — `POST /`, `GET /:id`, `GET /:id/info`, `GET /health`
+- `src/app.ts` — Fastify app setup: CORS, rate limiting, error handling, `GET /health`, `GET /llms.txt`
+- `src/routes/beam.ts` — `POST /`, `GET /:id`, `GET /:id/info`
 - `src/lib/store.ts` — Redis-backed storage, atomic consume via Lua script
 - `src/lib/crypto.ts` — AES-256-GCM encryption at rest
 - `src/lib/html-view.ts` — the browser-facing HTML view for `GET /:id`

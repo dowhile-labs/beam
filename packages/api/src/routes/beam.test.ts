@@ -22,6 +22,17 @@ describe("GET /health", () => {
   });
 });
 
+describe("GET /llms.txt", () => {
+  it("serves an llms.txt-spec document as plain text", async () => {
+    const res = await app.inject({ method: "GET", url: "/llms.txt" });
+    expect(res.statusCode).toBe(200);
+    expect(res.headers["content-type"]).toContain("text/plain");
+    expect(res.body).toMatch(/^# beam\n/);
+    expect(res.body).toContain("## Getting started");
+    expect(res.body).toContain("https://github.com/dowhile-labs/beam");
+  });
+});
+
 describe("POST /", () => {
   it("creates a beam and returns its metadata", async () => {
     const res = await app.inject({

@@ -4,6 +4,7 @@ import rateLimit from "@fastify/rate-limit";
 import { beamRoutes, isBeamError } from "./routes/beam";
 import { BeamError } from "./lib/errors";
 import { getRedis } from "./lib/redis";
+import { LLMS_TXT } from "./lib/llms-txt";
 
 export async function buildApp(): Promise<FastifyInstance> {
   // The API only ever receives traffic through the Cloudflare Tunnel, so
@@ -42,6 +43,13 @@ export async function buildApp(): Promise<FastifyInstance> {
       app.log.error(error, "Redis health check failed");
       return reply.code(503).send({ ok: false });
     }
+  });
+
+  // https://llmstxt.org/ — a plain-text, markdown map of the project for
+  // AI agents/assistants that fetch it directly (as opposed to robots.txt,
+  // which targets search crawlers).
+  app.get("/llms.txt", async (_request, reply) => {
+    return reply.type("text/plain; charset=utf-8").send(LLMS_TXT);
   });
 
   app.setErrorHandler((error, _request, reply) => {

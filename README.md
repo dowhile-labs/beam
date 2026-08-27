@@ -66,16 +66,21 @@ curl https://beam.dowhilelabs.dev/J5o2CRYw
 `GET /:id` content-negotiates on `Accept`: JSON by default, plain text for
 `text/plain`, or a small HTML page with a copy button for browsers.
 
-| Endpoint    | Method | Description                                        |
-| ----------- | ------ | -------------------------------------------------- |
-| `/`         | POST   | create a beam, returns id/url/expiry               |
-| `/:id`      | GET    | consume a beam (deletes it once views run out)     |
-| `/:id/info` | GET    | check if a beam still exists, without consuming it |
-| `/health`   | GET    | liveness/readiness check                           |
+| Endpoint    | Method | Description                                                       |
+| ----------- | ------ | ----------------------------------------------------------------- |
+| `/`         | POST   | create a beam, returns id/url/expiry                              |
+| `/:id`      | GET    | consume a beam (deletes it once views run out)                    |
+| `/:id/info` | GET    | check if a beam still exists, without consuming it                |
+| `/health`   | GET    | liveness/readiness check                                          |
+| `/llms.txt` | GET    | [llms.txt](https://llmstxt.org/) map of the project for AI agents |
 
 Limits: 100 KB text, 1–100 views, TTL up to 7 days, 60 requests/minute/IP.
 
 ## Using this from an AI agent
+
+Fetch [`https://beam.dowhilelabs.dev/llms.txt`](https://beam.dowhilelabs.dev/llms.txt)
+for a quick, agent-readable map of these docs
+([llms.txt](https://llmstxt.org/) format).
 
 See [`skills/beam/SKILL.md`](skills/beam/SKILL.md) — covers when to reach
 for beam instead of printing a secret inline, the `--json` output shape,
