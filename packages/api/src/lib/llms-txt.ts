@@ -20,7 +20,7 @@ views, 7 day TTL. Rate limit: 60 requests/minute/IP.
 ## For AI agents
 
 - [SKILL.md](https://github.com/dowhile-labs/beam/blob/main/skills/beam/SKILL.md): when and how to use the \`beam\` CLI/API from an agent, JSON output shape, exit codes
-- [MCP server](https://mcp.dowhilelabs.dev/mcp): Streamable HTTP endpoint exposing \`beam_send\`, \`beam_get\`, \`beam_info\` as native MCP tools
+- [MCP server](https://beam-mcp.dowhilelabs.dev/mcp): Streamable HTTP endpoint exposing \`beam_send\`, \`beam_get\`, \`beam_info\` as native MCP tools
 - [MCP package docs](https://github.com/dowhile-labs/beam/blob/main/packages/mcp/README.md): MCP server setup and tool schemas
 
 ## HTTP API

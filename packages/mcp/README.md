@@ -10,7 +10,7 @@ and expiry.
 ## Connect
 
 ```
-https://mcp.dowhilelabs.dev/mcp
+https://beam-mcp.dowhilelabs.dev/mcp
 ```
 
 Streamable HTTP, stateless (no session id required — every request is

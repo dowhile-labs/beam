@@ -11,11 +11,11 @@ is about contributing code to this repo.
 once (or N times) before the text is deleted for good. Three packages, one
 pnpm workspace, one Redis-backed API:
 
-| Package                        | What it is                                                                                    | Deployed at            |
-| ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------- |
-| [`packages/api`](packages/api) | Fastify + Redis backend, the source of truth                                                  | `beam.dowhilelabs.dev` |
-| [`packages/cli`](packages/cli) | `@dowhilelabs/beam` — the `beam` CLI, calls the API over HTTP                                 | published to npm       |
-| [`packages/mcp`](packages/mcp) | MCP server, exposes `beam_send`/`beam_get`/`beam_info` as tools, also calls the API over HTTP | `mcp.dowhilelabs.dev`  |
+| Package                        | What it is                                                                                    | Deployed at                |
+| ------------------------------ | --------------------------------------------------------------------------------------------- | -------------------------- |
+| [`packages/api`](packages/api) | Fastify + Redis backend, the source of truth                                                  | `beam.dowhilelabs.dev`     |
+| [`packages/cli`](packages/cli) | `@dowhilelabs/beam` — the `beam` CLI, calls the API over HTTP                                 | published to npm           |
+| [`packages/mcp`](packages/mcp) | MCP server, exposes `beam_send`/`beam_get`/`beam_info` as tools, also calls the API over HTTP | `beam-mcp.dowhilelabs.dev` |
 
 `packages/cli` and `packages/mcp` are both thin clients over the same public
 HTTP API — neither talks to Redis directly. If you're adding a feature that

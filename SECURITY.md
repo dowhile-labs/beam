@@ -15,7 +15,7 @@ any public disclosure.
 
 This covers the `beam` CLI, the API server (`packages/api`), and the MCP
 server (`packages/mcp`) in this repository, as well as the hosted instance
-at `beam.dowhilelabs.dev` / `mcp.dowhilelabs.dev`.
+at `beam.dowhilelabs.dev` / `beam-mcp.dowhilelabs.dev`.
 
 ## Supported versions
 

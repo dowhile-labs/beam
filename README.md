@@ -87,7 +87,7 @@ for beam instead of printing a secret inline, the `--json` output shape,
 and exit codes to branch on.
 
 Agents that speak [MCP](https://modelcontextprotocol.io) instead of a shell
-can connect to `https://mcp.dowhilelabs.dev/mcp` (Streamable HTTP) and get
+can connect to `https://beam-mcp.dowhilelabs.dev/mcp` (Streamable HTTP) and get
 `beam_send`, `beam_get`, and `beam_info` as native tools — see
 [`packages/mcp`](packages/mcp).
 
