@@ -20,5 +20,18 @@ services:
     depends_on:
       - redis
 
+  mcp:
+    build:
+      context: .
+      dockerfile: packages/mcp/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    environment:
+      BEAM_API_URL: ${BEAM_API_URL:-https://beam.dowhilelabs.dev}
+      PORT: 3100
+    depends_on:
+      - api
+
 volumes:
   redis-data:

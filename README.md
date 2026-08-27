@@ -81,6 +81,11 @@ See [`skills/beam/SKILL.md`](skills/beam/SKILL.md) — covers when to reach
 for beam instead of printing a secret inline, the `--json` output shape,
 and exit codes to branch on.
 
+Agents that speak [MCP](https://modelcontextprotocol.io) instead of a shell
+can connect to `https://mcp.dowhilelabs.dev/mcp` (Streamable HTTP) and get
+`beam_send`, `beam_get`, and `beam_info` as native tools — see
+[`packages/mcp`](packages/mcp).
+
 ## Self-hosting
 
 The API is a Fastify service backed by Redis. Bring your own Redis, set
@@ -99,6 +104,7 @@ environment variables.
 
 - [`packages/api`](packages/api) — Fastify + Redis backend
 - [`packages/cli`](packages/cli) — the `beam` CLI (`@dowhilelabs/beam`)
+- [`packages/mcp`](packages/mcp) — MCP server exposing beam as tools over HTTP
 
 ## Development
 
