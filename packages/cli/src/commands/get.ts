@@ -18,6 +18,6 @@ export async function runGet(
     return EXIT_CODES.SUCCESS;
   }
 
-  printGetSuccess(id, result);
+  printGetSuccess(result);
   return EXIT_CODES.SUCCESS;
 }

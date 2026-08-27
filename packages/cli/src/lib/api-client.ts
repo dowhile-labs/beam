@@ -13,6 +13,7 @@ export interface GetResult {
   text: string;
   views_remaining: number;
   created_at: string;
+  expires_at: string;
 }
 
 export interface InfoResult {

@@ -22,19 +22,22 @@ export function printSendSuccess(result: SendResult, qrBlock?: string): void {
   }
 }
 
-export function printGetSuccess(id: string, result: GetResult): void {
+export function printGetSuccess(result: GetResult): void {
   if (process.stdout.isTTY) {
+    const views =
+      result.views_remaining > 0
+        ? `${pluralize(result.views_remaining, "view")} left`
+        : "gone";
     console.log(
-      pc.dim(`Beam ${id} · ${pluralize(result.views_remaining, "view")} left`),
+      pc.dim(
+        `Beamed ${result.created_at} · Expires ${result.expires_at} · Views ${views}`,
+      ),
     );
     console.log("");
   }
   process.stdout.write(
     result.text.endsWith("\n") ? result.text : `${result.text}\n`,
   );
-  if (process.stdout.isTTY && result.views_remaining === 0) {
-    console.log(pc.dim("💥 This beam has faded."));
-  }
 }
 
 export function printError(error: BeamCliError): void {
