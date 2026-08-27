@@ -130,3 +130,7 @@ pnpm test          # all packages
 ## License
 
 MIT
+
+## Security
+
+See [`SECURITY.md`](SECURITY.md) for how to report a vulnerability.
