@@ -1,11 +1,32 @@
 import type { FastifyInstance } from "fastify";
 import { BeamError } from "../lib/errors";
 import { createBeam, consumeBeam, getBeamInfo } from "../lib/store";
+import { renderBeamHtml, renderErrorHtml } from "../lib/html-view";
 
 interface CreateBeamBody {
   text?: unknown;
   views?: unknown;
   ttl?: unknown;
+}
+
+// Browsers send an Accept header that lists text/html (with a specific,
+// non-wildcard preference); curl, fetch, and the CLI default to `*/*` or
+// explicit application/json. This lets a single URL serve a human-friendly
+// page in a browser while remaining a plain JSON API for everything else.
+function wantsHtml(acceptHeader: string | undefined): boolean {
+  if (!acceptHeader) return false;
+  return acceptHeader.split(",").some((part) => {
+    const type = part.split(";")[0]?.trim();
+    return type === "text/html" || type === "application/xhtml+xml";
+  });
+}
+
+function wantsPlainText(acceptHeader: string | undefined): boolean {
+  if (!acceptHeader) return false;
+  return acceptHeader.split(",").some((part) => {
+    const type = part.split(";")[0]?.trim();
+    return type === "text/plain";
+  });
 }
 
 export async function beamRoutes(app: FastifyInstance) {
@@ -31,7 +52,27 @@ export async function beamRoutes(app: FastifyInstance) {
   });
 
   app.get<{ Params: { id: string } }>("/:id", async (request, reply) => {
+    const accept = request.headers.accept;
+
+    if (wantsHtml(accept)) {
+      try {
+        const beam = await consumeBeam(request.params.id);
+        return reply.type("text/html").send(renderBeamHtml(beam));
+      } catch (error) {
+        if (error instanceof BeamError) {
+          return reply
+            .code(error.status)
+            .type("text/html")
+            .send(renderErrorHtml(error));
+        }
+        throw error;
+      }
+    }
+
     const beam = await consumeBeam(request.params.id);
+    if (wantsPlainText(accept)) {
+      return reply.type("text/plain").send(beam.text);
+    }
     return reply.send(beam);
   });
 

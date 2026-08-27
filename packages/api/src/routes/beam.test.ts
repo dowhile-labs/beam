@@ -68,6 +68,72 @@ describe("POST /", () => {
   });
 });
 
+describe("content negotiation on GET /:id", () => {
+  it("returns JSON by default (no Accept header preference)", async () => {
+    const create = await app.inject({
+      method: "POST",
+      url: "/",
+      payload: { text: "json by default" },
+    });
+    const { id } = create.json();
+
+    const res = await app.inject({ method: "GET", url: `/${id}` });
+    expect(res.headers["content-type"]).toContain("application/json");
+    expect(res.json()).toMatchObject({ text: "json by default" });
+  });
+
+  it("returns plain text when Accept: text/plain", async () => {
+    const create = await app.inject({
+      method: "POST",
+      url: "/",
+      payload: { text: "plain text please" },
+    });
+    const { id } = create.json();
+
+    const res = await app.inject({
+      method: "GET",
+      url: `/${id}`,
+      headers: { accept: "text/plain" },
+    });
+    expect(res.statusCode).toBe(200);
+    expect(res.headers["content-type"]).toContain("text/plain");
+    expect(res.body).toBe("plain text please");
+  });
+
+  it("returns an HTML page when Accept: text/html (browser-like)", async () => {
+    const create = await app.inject({
+      method: "POST",
+      url: "/",
+      payload: { text: "<script>alert(1)</script>" },
+    });
+    const { id } = create.json();
+
+    const res = await app.inject({
+      method: "GET",
+      url: `/${id}`,
+      headers: {
+        accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      },
+    });
+    expect(res.statusCode).toBe(200);
+    expect(res.headers["content-type"]).toContain("text/html");
+    expect(res.body).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
+    expect(res.body).not.toContain("<script>alert(1)</script>");
+  });
+
+  it("returns an HTML error page for a missing id when Accept: text/html", async () => {
+    const res = await app.inject({
+      method: "GET",
+      url: "/doesNotExist",
+      headers: { accept: "text/html" },
+    });
+    expect(res.statusCode).toBe(404);
+    expect(res.headers["content-type"]).toContain("text/html");
+    expect(res.body).toContain("not found");
+  });
+});
+
 describe("GET /:id and /:id/info", () => {
   it("round-trips a beam end to end and self-destructs after one view", async () => {
     const create = await app.inject({
