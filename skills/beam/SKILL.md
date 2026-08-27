@@ -44,10 +44,13 @@ beam "the secret value"
 ```
 
 Prints the URL to stdout, plus a terminal QR code (skip with `--no-qr`).
-Reads from stdin if no argument is given — useful for piping command output:
+Reads from stdin if no argument is given — useful for piping command output
+or a whole file, and also supports typed multi-line input:
 
 ```bash
 generate-password | beam
+cat notes.txt | beam --ttl 7d
+beam                       # type/paste multiple lines, then Ctrl+D to send
 ```
 
 ### Flags

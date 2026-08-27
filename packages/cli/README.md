@@ -30,6 +30,8 @@ npm install -g @dowhilelabs/beam
 beam <text>              send text, print a beam link
 beam <id>                fetch and print a beam's text (consumes a view)
 echo "..." | beam         read text from stdin instead of an argument
+cat file.txt | beam       beam a whole file's contents
+beam                      no argument, no stdin pipe: type text, then Ctrl+D to send
 ```
 
 | Flag          | Default                        | Description                            |
