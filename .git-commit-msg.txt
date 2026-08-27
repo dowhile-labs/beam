@@ -1,0 +1,15 @@
+docs: agent-facing SKILL.md, rewrite README, add LICENSE
+
+- Add skills/beam/SKILL.md following the Agent Skills SKILL.md spec
+  (YAML frontmatter + name/description/license/metadata/allowed-tools,
+  concise markdown body) so coding agents know when and how to use the
+  beam CLI: --json output shape, exit codes to branch on, and the
+  "don't retrieve speculatively, it's destructive" gotcha
+- Rewrite README.md to match conventional, widely-used npm CLI package
+  READMEs (ntl/nanoid/ms style): lead with a real terminal example,
+  flag table, JSON example, curl-based API reference table, links to
+  the SKILL.md and each package, no marketing copy
+- Add the MIT LICENSE file referenced by every package.json's
+  "license": "MIT" field but missing from the repo until now
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
