@@ -97,8 +97,7 @@ pnpm install
 pnpm run build && pnpm run start
 ```
 
-See `packages/api/package.json` for the full script list and required
-environment variables.
+See [`packages/api`](packages/api) for the full environment variable list.
 
 ## Packages
 
@@ -119,7 +118,8 @@ how to _use_ the `beam` CLI/API/MCP tools as an end user).
 pnpm install
 pnpm run dev:api   # API on :3000
 pnpm run dev:cli   # run the CLI against dev/prod API
-pnpm test          # both packages
+pnpm run dev:mcp   # MCP server on :3100
+pnpm test          # all packages
 ```
 
 ## License

@@ -35,8 +35,8 @@ pnpm --filter @dowhilelabs/api dev    # watch mode, tsx
 pnpm --filter @dowhilelabs/api test   # vitest, needs a reachable Redis
 ```
 
-`docker compose up -d` from the repo root starts Redis + the API together
-for local development.
+`docker compose up -d` from the repo root starts Redis, the API, and the MCP
+server together for local development.
 
 ## Structure
 

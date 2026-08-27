@@ -25,7 +25,7 @@ needs new data or behavior, it almost always starts in `packages/api`.
 
 ```bash
 pnpm install
-docker compose up -d          # starts Redis + the API locally
+docker compose up -d          # starts Redis + the API + the MCP server locally
 cp .env.example .env          # then set ENCRYPTION_KEY (see below)
 ```
 
