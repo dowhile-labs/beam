@@ -106,6 +106,13 @@ environment variables.
 - [`packages/cli`](packages/cli) — the `beam` CLI (`@dowhilelabs/beam`)
 - [`packages/mcp`](packages/mcp) — MCP server exposing beam as tools over HTTP
 
+## For AI coding agents working on this repo
+
+See [`AGENTS.md`](AGENTS.md) for how the monorepo is laid out, how to run
+tests locally, and conventions to follow when contributing code (as opposed
+to [`skills/beam/SKILL.md`](skills/beam/SKILL.md), which teaches an agent
+how to _use_ the `beam` CLI/API/MCP tools as an end user).
+
 ## Development
 
 ```
