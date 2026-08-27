@@ -33,6 +33,7 @@ export interface ConsumedBeam {
   text: string;
   views_remaining: number;
   created_at: string;
+  expires_at: string;
 }
 
 export interface BeamInfo {
@@ -113,12 +114,13 @@ local raw = redis.call('GET', KEYS[1])
 if not raw then
   return false
 end
+local ttl = redis.call('TTL', KEYS[1])
 local data = cjson.decode(raw)
 data.views_remaining = data.views_remaining - 1
+data.ttl_at_read = ttl
 if data.views_remaining <= 0 then
   redis.call('DEL', KEYS[1])
 else
-  local ttl = redis.call('TTL', KEYS[1])
   redis.call('SET', KEYS[1], cjson.encode(data), 'EX', ttl)
 end
 return cjson.encode(data)
@@ -133,11 +135,13 @@ export async function consumeBeam(id: string): Promise<ConsumedBeam> {
     throw new BeamError("NOT_FOUND", "Beam not found or already consumed");
   }
 
-  const data = JSON.parse(result) as StoredBeam;
+  const data = JSON.parse(result) as StoredBeam & { ttl_at_read: number };
+  const expiresAt = new Date(Date.now() + data.ttl_at_read * 1000);
   return {
     text: decrypt(data.ciphertext),
     views_remaining: data.views_remaining,
     created_at: data.created_at,
+    expires_at: expiresAt.toISOString(),
   };
 }
 

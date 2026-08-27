@@ -55,6 +55,17 @@ export async function beamRoutes(app: FastifyInstance) {
     const accept = request.headers.accept;
 
     if (wantsHtml(accept)) {
+      // This page is destructive to view (self-destructs the beam) and may
+      // render sensitive text, so it must never be cached or leak via
+      // referrer headers, and inline script/style needs an explicit CSP
+      // allowance since there's no external bundle to hash/nonce.
+      reply.header("Cache-Control", "no-store");
+      reply.header("Referrer-Policy", "no-referrer");
+      reply.header(
+        "Content-Security-Policy",
+        "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'",
+      );
+
       try {
         const beam = await consumeBeam(request.params.id);
         return reply.type("text/html").send(renderBeamHtml(beam));
