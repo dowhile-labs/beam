@@ -20,5 +20,12 @@ export default tseslint.config(
       "no-console": ["warn", { allow: ["error"] }],
     },
   },
+  {
+    files: ["packages/cli/src/**/*.ts"],
+    ignores: ["packages/cli/src/**/*.test.ts"],
+    rules: {
+      "no-console": "off",
+    },
+  },
   eslintConfigPrettier,
 );

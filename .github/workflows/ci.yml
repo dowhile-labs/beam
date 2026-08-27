@@ -54,4 +54,4 @@ jobs:
           REDIS_URL: redis://localhost:6379
 
       - name: Build
-        run: pnpm run build:api
+        run: pnpm run build

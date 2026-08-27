@@ -1,0 +1,53 @@
+{
+  "name": "@dowhilelabs/beam",
+  "version": "0.1.0",
+  "description": "Ephemeral text transport for humans and AI agents. Read once. Gone forever.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "beam": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dowhile-labs/beam.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://beam.dowhilelabs.dev",
+  "keywords": [
+    "cli",
+    "ephemeral",
+    "pastebin",
+    "secrets",
+    "ai-agents"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsup src/cli.ts --format cjs --target node20 --clean",
+    "start": "node dist/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^13.0.0",
+    "picocolors": "^1.1.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/qrcode": "^1.5.5",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}
