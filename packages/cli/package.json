@@ -1,6 +1,6 @@
 {
   "name": "@dowhilelabs/beam",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ephemeral text transport for humans and AI agents. Read once. Gone forever.",
   "license": "MIT",
   "type": "commonjs",
