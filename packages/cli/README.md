@@ -7,7 +7,7 @@
 Send text, get a link. Open the link once, the text is gone.
 
 ```
-$ beam "meet me at gate 12, 5pm"
+$ beam "here's the summary from today's standup"
 ✨ https://beam.dowhilelabs.dev/J5o2CRYw
 Expires 2026-08-28T02:36:07Z · 1 view remaining
 ```
