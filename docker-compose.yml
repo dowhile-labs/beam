@@ -7,6 +7,19 @@ services:
     volumes:
       - redis-data:/data
 
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - redis-cli ping || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
   api:
     restart: unless-stopped
     build:
@@ -22,6 +35,19 @@ services:
     depends_on:
       - redis
 
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -qO- http://127.0.0.1:3000/health || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512M
   mcp:
     restart: unless-stopped
     build:
@@ -33,5 +59,18 @@ services:
       BEAM_API_URL: ${BEAM_API_URL:-https://beam.dowhilelabs.dev}
       PORT: 3100
 
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -qO- http://127.0.0.1:3100/health || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512M
 volumes:
   redis-data:
